@@ -31,7 +31,7 @@ void setup() {
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
 }
-char a;
+int a;
 void loop() {
   if (BT.available())
     // if text arrived in from BT serial...
@@ -59,29 +59,53 @@ void loop() {
 }
 
 void opcaoEscolhida(int a) {
-  if (a == '1')
+  if(a == 0)
+  {
+    colorWipe(strip.Color(0, 0, 0, 255), 50);
+  }
+  if (a == 1)
   {
     colorWipe(strip.Color(255, 0, 0), 50); // Red
   }
-  if (a == '2')
+  if (a == 2)
   {
     colorWipe(strip.Color(0, 255, 0), 50); // Green
   }
-  if (a == '3')
+  if (a == 3)
   {
     colorWipe(strip.Color(0, 0, 255), 50); // Blue
   }
-  if (a == '4')
+  if (a == 4)
   {
     rainbow(20);
   }
-  if (a == '5')
+  if (a == 5)
   {
-    rainbowCycle(20);
+    rainbowCycle(15);
   }
-  if (a == '6')
+  if (a == 6)
   {
     theaterChaseRainbow(50);
+  }
+  if (a == 7)
+  {
+    colorWipe(strip.Color(127, 127, 127), 50);
+  }
+  if (a == 8)
+  {
+    theaterChase(strip.Color(127, 127, 127), 50); 
+  }
+  if (a == 9)
+  {
+    theaterChase(strip.Color(127, 0, 0), 50);
+  }
+  if (a == 10)
+  {
+    theaterChase(strip.Color(0, 0, 127), 50);
+  }
+  if (a == 11)
+  {
+    rainbowCycle(5);
   }
 }
 
