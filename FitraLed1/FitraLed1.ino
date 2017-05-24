@@ -32,7 +32,7 @@ void setup() {
   strip.show(); // Initialize all pixels to 'off'
 }
 int a;
-void loop() {
+void verificaBluetooth() {
   if (BT.available())
     // if text arrived in from BT serial...
   {
@@ -42,6 +42,9 @@ void loop() {
   } else {
     opcaoEscolhida(a);
   }
+}
+void loop() {
+  verificaBluetooth();
   /*
     // Some example procedures showing how to display to the pixels:
     colorWipe(strip.Color(255, 0, 0), 50); // Red
@@ -59,7 +62,7 @@ void loop() {
 }
 
 void opcaoEscolhida(int a) {
-  if(a == 0)
+  if (a == 0)
   {
     colorWipe(strip.Color(0, 0, 0, 255), 50);
   }
@@ -93,7 +96,7 @@ void opcaoEscolhida(int a) {
   }
   if (a == 8)
   {
-    theaterChase(strip.Color(127, 127, 127), 50); 
+    theaterChase(strip.Color(127, 127, 127), 50);
   }
   if (a == 9)
   {
@@ -124,6 +127,10 @@ void rainbow(uint8_t wait) {
   for (j = 0; j < 256; j++) {
     for (i = 0; i < strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel((i + j) & 255));
+      if (BT.available()) {
+        j=256;
+        i=strip.numPixels();
+      }
     }
     strip.show();
     delay(wait);
@@ -137,6 +144,10 @@ void rainbowCycle(uint8_t wait) {
   for (j = 0; j < 256 * 5; j++) { // 5 cycles of all colors on wheel
     for (i = 0; i < strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+      if (BT.available()) {
+        j=256*5;
+        i=strip.numPixels();
+      }
     }
     strip.show();
     delay(wait);
@@ -149,6 +160,10 @@ void theaterChase(uint32_t c, uint8_t wait) {
     for (int q = 0; q < 3; q++) {
       for (uint16_t i = 0; i < strip.numPixels(); i = i + 3) {
         strip.setPixelColor(i + q, c);  //turn every third pixel on
+        if (BT.available()) {
+          j=10;
+          i=strip.numPixels();
+      }
       }
       strip.show();
 
@@ -167,6 +182,10 @@ void theaterChaseRainbow(uint8_t wait) {
     for (int q = 0; q < 3; q++) {
       for (uint16_t i = 0; i < strip.numPixels(); i = i + 3) {
         strip.setPixelColor(i + q, Wheel( (i + j) % 255)); //turn every third pixel on
+        if (BT.available()) {
+        j=256;
+        i=strip.numPixels();
+      }
       }
       strip.show();
 
